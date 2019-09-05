@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>EDIT TASK</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<nav class="navbar navbar-dark bg-primary">
+    <a href="#" style="background-color: #146daf;
+        padding: 10px;
+        border-radius: 15px;
+        font-weight: bold;" class="navbar-brand">Task</a>
+</nav>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 mt-10 card">
+                <form action="/task/update/<%= task.id %>" method="post" name="task_edit">
+
+                    <h3 class="card-title">Edit Task</h3>
+                    <div class="form-group">
+                        <input type="text" name="name" value="<%= task.name %>" required class="form-control"
+                            placeholder="Name">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="description" value="<%= task.description %>" required
+                            class="form-control" placeholder="Description">
+                    </div>
+                    <div class="form-group">
+                        <select name="id_status_task" class="form-control">
+                            <option value="0"> -- select a status -- </option>
+                            <%for(j=0; j<statusList.length; j++){%>
+                            <option  value="<%= statusList[j].id%>">
+                                <%= statusList[j].name %>
+                            </option>
+                            <%}%>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select name="id_user" class="form-control">
+                            <option value="0" > -- select a user -- </option>
+                                <%for(k=0; k<userList.length; k++){%>
+                            <option value="<%= userList[k].id_user %>">
+                                <%= userList[k].name %>
+                            </option>
+                            <%}%>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-info">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
