@@ -1,6 +1,7 @@
 const dbConecction = require('../../config/connectionDb');
 module.exports = app => {
     const cnnc = dbConecction();
+    //Show all tasks
     app.get('/', (req, res) => {
         cnnc.query('select * from user', (err, resultUser) => {
             cnnc.query('select * from task', (err, resultTask) => {
@@ -43,7 +44,7 @@ module.exports = app => {
         });
     })
 
-    // SHOW EDIT TASK FORM
+    // show edit task views
     app.get('/task/edit/(:id)', function (req, res, next) {
         cnnc.query('SELECT * FROM task WHERE id = ' + req.params.id, function (err, rows, fields) {
             if (err) throw err
@@ -52,8 +53,6 @@ module.exports = app => {
                 res.redirect('/')
             } cnnc.query('select * from user', (err, resultUser) => {
                 cnnc.query('select * from status', (err, resultStatus) => {
-                    // if task found
-                    // render to views/task/edit.ejs template file
                     res.render('task/edit', {
                         task: rows[0],
                         statusList: resultStatus,
@@ -65,14 +64,14 @@ module.exports = app => {
     })
 
 
-    // EDIT USER POST ACTION
+    // edit task post action
     app.post('/task/update/(:id)', function (req, res, next) {
         cnnc.query('UPDATE task SET ? WHERE id = ' + req.params.id, req.body, function (err, result) {
             res.redirect('/');
         })
     })
 
-    // DELETE USER POST ACTION
+    // delete task post action
     app.get('/task/delete/(:id)', function (req, res, next) {
         cnnc.query('UPDATE task SET id_user=null WHERE id = ' + req.params.id, function (err, result) {
             res.redirect('/');
